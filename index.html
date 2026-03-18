@@ -216,197 +216,76 @@
             -webkit-mask-size: contain;
             -webkit-mask-repeat: no-repeat;
         }
-/* --- 全局变量与背景调整 --- */
-:root {
-    --ios-bg: rgba(255, 255, 255, 0.45); /* 提升透明度以显现背景图 */
-    --ios-radius: 14px;
-    --primary-color: #ffb6c1; /* 默认粉色 */
-    --text-main: #2c3e50;
-    --text-sub: #5d6d7e;
-    --card-inner-bg: rgba(255, 255, 255, 0.3); /* 内部区域更透 */
-    --border-light: rgba(255, 255, 255, 0.5);
-    --st-green: #48bb78; /* 酒馆风格绿 */
-}
-
-body {
-    margin: 0;
-    padding: 0;
-    font-family: -apple-system, sans-serif;
-    background: url('https://img.heliar.top/file/1773835112006_IMG_20260318_195754.jpg') no-repeat center center fixed;
-    background-size: cover;
-    color: var(--text-main);
-    min-height: 100vh;
-}
-
-/* 首页容器 A */
-#page-a {
-    padding: 15px;
-    padding-bottom: 100px;
-}
-
-/* --- 酒馆 1:1 卡片布局 --- */
-.entry-card {
-    background: var(--ios-bg);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--border-light);
-    border-radius: var(--ios-radius);
-    margin-bottom: 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    transition: 0.3s;
-}
-
-/* 卡片头部 */
-.card-header {
-    display: flex;
-    align-items: center;
-    padding: 10px 12px;
-    gap: 8px;
-    border-bottom: 1px solid rgba(0,0,0,0.05);
-}
-
-.st-toggle {
-    width: 32px;
-    height: 16px;
-    background: rgba(0,0,0,0.1);
-    border-radius: 20px;
-    position: relative;
-    cursor: pointer;
-}
-.st-toggle.active { background: var(--st-green); }
-.st-toggle::after {
-    content: '';
-    position: absolute;
-    width: 12px;
-    height: 12px;
-    background: white;
-    border-radius: 50%;
-    top: 2px;
-    left: 2px;
-    transition: 0.2s;
-}
-.st-toggle.active::after { left: 18px; }
-
-.entry-name-input {
-    flex-grow: 1;
-    background: transparent;
-    border: none;
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--text-main);
-    outline: none;
-}
-
-/* --- 展开后的详情区 (网格) --- */
-.entry-detail {
-    padding: 12px;
-    font-size: 12px;
-}
-
-/* 参数行：位置下拉框 */
-.param-row-main {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 12px;
-}
-
-.st-select {
-    flex-grow: 1;
-    background: var(--card-inner-bg);
-    border: 1px solid var(--border-light);
-    border-radius: 6px;
-    padding: 5px;
-    font-size: 12px;
-}
-
-/* 酒馆核心三参数：深度、顺序、概率 */
-.three-params {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    margin-bottom: 12px;
-}
-
-.input-group {
+/* --- 1:1 酒馆功能扩展样式 --- */
+.full-params-grid {
     display: flex;
     flex-direction: column;
-    gap: 4px;
-    text-align: center;
-}
-
-.input-group label {
-    font-size: 10px;
-    color: var(--text-sub);
-}
-
-.st-num-input {
-    background: var(--card-inner-bg);
-    border: 1px solid var(--border-light);
-    border-radius: 4px;
-    padding: 4px;
-    text-align: center;
-    font-weight: bold;
-}
-
-/* 关键字与逻辑区 */
-.kw-logic-box {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 12px;
-}
-
-.textarea-box {
-    flex: 2;
-    background: var(--card-inner-bg);
-    border: 1px solid var(--border-light);
-    border-radius: 6px;
-    padding: 6px;
-    min-height: 40px;
-    color: var(--text-main);
-}
-
-.logic-select {
-    flex: 1;
-    background: var(--card-inner-bg);
-    border: 1px solid var(--border-light);
-    border-radius: 6px;
-}
-
-/* 内容显示区 (多行文本预览) */
-.content-preview {
-    background: rgba(0,0,0,0.03);
-    border-radius: 8px;
+    gap: 12px;
     padding: 10px;
-    font-size: 11px;
-    line-height: 1.5;
-    color: #444;
-    white-space: pre-wrap;
-    max-height: 100px;
-    overflow-y: auto;
 }
 
-/* 折叠逻辑控制 */
-.detail-container { display: none; } /* 默认关闭详情 */
-.entry-card.expanded .detail-container { display: block; }
-.entry-card.expanded .arrow-icon { transform: rotate(90deg); }
+/* 扫条深度、区分大小写等四列排版 */
+.four-cols {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+}
 
-/* --- 顶部与底部 --- */
-.header-tools { display: flex; justify-content: space-between; padding: 10px 0; }
-.start-btn {
-    position: fixed;
-    bottom: 90px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80%;
-    background: var(--primary-color);
-    color: white;
+.st-label-small {
+    font-size: 9px;
+    color: var(--text-sub);
     text-align: center;
-    padding: 12px;
-    border-radius: 30px;
-    font-weight: bold;
-    box-shadow: 0 4px 15px rgba(255,182,193,0.5);
-    z-index: 99;
+    margin-bottom: 3px;
+    white-space: nowrap;
+}
+
+/* 针对酒馆特有的复选框组 */
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 10px 0;
+}
+
+.st-checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+}
+
+.st-checkbox-item input[type="checkbox"] {
+    accent-color: var(--primary-color);
+    width: 14px;
+    height: 14px;
+}
+
+/* 包含组、权重等参数 */
+.group-params {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
+    gap: 4px;
+    background: rgba(0,0,0,0.03);
+    padding: 8px;
+    border-radius: 8px;
+}
+
+/* 底部选择框 (角色/标签/触发器) */
+.bottom-selectors {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.st-multiselect {
+    background: var(--card-inner-bg);
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    height: 60px;
+    font-size: 11px;
+    overflow-y: auto;
+    padding: 4px;
 }
 
 
@@ -425,72 +304,96 @@ body {
         <button class="import-btn">📥</button>
     </div>
 
-    <div class="entry-card expanded" id="entry-1"> <div class="card-header">
-            <div class="select-wrapper">
-                <div class="check-circle" onclick="event.stopPropagation(); this.classList.toggle('checked')"></div>
-            </div>
-            <div class="arrow-icon" onclick="toggleEntry('entry-1')">▶</div>
-            <div class="st-toggle active"></div>
-            <input type="text" class="entry-name-input" value="角色补充: 亚人族" readonly>
-            <div class="header-icons">📋 🗑️</div>
+    <div class="entry-card" id="entry-demo">
+    <div class="card-header">
+        <div class="select-wrapper">
+            <div class="check-circle" onclick="event.stopPropagation(); this.classList.toggle('checked')"></div>
         </div>
-
-        <div class="detail-container">
-            <div class="entry-detail">
-                <div class="param-row-main">
-                    <span style="font-size: 11px; color: var(--text-sub);">位置:</span>
-                    <select class="st-select" disabled>
-                        <option>角色定义之前</option>
-                        <option>角色定义之后</option>
-                        <option>示例消息前(↑EM)</option>
-                        <option>示例消息后(↓EM）</option>
-                        <option>作者注释之前</option>
-                        <option>作者注释之后</option>
-                        <option>[系统]在深度</option>
-                        <option>[用户]在深度</option>
-                        <option>[AI]在深度</option>
-                        <option>锚点</option>
-                    </select>
-                    <span>🔄</span> </div>
-
-                <div class="three-params">
-                    <div class="input-group">
-                        <label>深度</label>
-                        <div class="st-num-input">10</div>
-                    </div>
-                    <div class="input-group">
-                        <label>顺序</label>
-                        <div class="st-num-input">100</div>
-                    </div>
-                    <div class="input-group">
-                        <label>触发 %</label>
-                        <div class="st-num-input">100</div>
-                    </div>
-                </div>
-
-                <div class="kw-logic-box">
-                    <div class="textarea-box">亚人, 半人, 兽人, 言兽</div>
-                    <select class="logic-select" disabled>
-                        <option>与 任意</option>
-                    </select>
-                </div>
-
-                <div class="content-preview">
-- 基因基础: 携带Y染色体
-- 外部形态: 纯粹人类形态，不携带任何动物特征 (无毛皮、鳞片、尾、角等)
-... (这里是 JSON 里的具体内容)
-                </div>
-            </div>
-        </div>
+        <div class="arrow-icon" onclick="toggleEntry('entry-demo')">▼</div>
+        <div class="st-toggle active"></div>
+        <input type="text" class="entry-name-input" value="亚人族设定 (UID: 1)" readonly>
+        <div class="header-icons">📋 💾 🗑️</div>
     </div>
 
-    <div class="start-btn">开始整理 (Page B)</div>
-</main>
+    <div class="detail-container">
+        <div class="full-params-grid">
+            
+            <div class="param-row-main">
+                <span class="st-label-small">位置:</span>
+                <select class="st-select" disabled>
+                    <option>角色定义之前</option>
+                    <option>角色定义之后</option>
+                    <option>示例消息前(↑EM)</option>
+                    <option>示例消息后(↓EM）</option>
+                    <option>作者注释之前</option>
+                    <option>作者注释之后</option>
+                    <option>[系统]在深度</option>
+                    <option>锚点</option>
+                </select>
+                <span>🔄 📋</span>
+            </div>
 
-<script>
-    // 处理卡片展开/收起
-    function toggleEntry(id) {
-        document.getElementById(id).classList.toggle('expanded');
-    }
-</script>
+            <div class="three-params">
+                <div class="input-group"><label>深度</label><div class="st-num-input">10</div></div>
+                <div class="input-group"><label>顺序</label><div class="st-num-input">100</div></div>
+                <div class="input-group"><label>触发 %</label><div class="st-num-input">100</div></div>
+            </div>
+
+            <div class="st-label-small" style="text-align:left">主要关键字:</div>
+            <div class="kw-logic-box">
+                <div class="textarea-box">亚人, 半人, 兽人</div>
+                <div class="input-group">
+                    <label>逻辑</label>
+                    <select class="st-select" style="width:70px;" disabled>
+                        <option>与任意</option>
+                        <option>与所有</option>
+                        <option>非所有</option>
+                        <option>非任何</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="four-cols">
+                <div class="input-group"><label class="st-label-small">扫描深度</label><select class="st-select" disabled><option>使用全局</option></select></div>
+                <div class="input-group"><label class="st-label-small">区分大小写</label><select class="st-select" disabled><option>使用全局</option><option>是</option><option>否</option></select></div>
+                <div class="input-group"><label class="st-label-small">完整单词</label><select class="st-select" disabled><option>使用全局</option><option>是</option><option>否</option></select></div>
+                <div class="input-group"><label class="st-label-small">组评分</label><select class="st-select" disabled><option>使用全局</option><option>是</option><option>否</option></select></div>
+            </div>
+
+            <div class="checkbox-group">
+                <label class="st-checkbox-item"><input type="checkbox" checked disabled> 不可递归 (不会被其他条目激活)</label>
+                <label class="st-checkbox-item"><input type="checkbox" checked disabled> 防止进一步递归</label>
+                <label class="st-checkbox-item"><input type="checkbox" disabled> 延迟到递归</label>
+                <label class="st-checkbox-item"><input type="checkbox" disabled> 无视回复限额</label>
+            </div>
+
+            <div class="st-label-small" style="text-align:left">内容 (词符估计: 128):</div>
+            <div class="content-preview" style="max-height: 200px;">
+                此处是酒馆世界书的内容描述文本...
+                支持多行显示。
+            </div>
+
+            <div class="group-params">
+                <div class="st-checkbox-item" style="font-size:9px;"><input type="checkbox"> 确定优先级</div>
+                <div class="input-group"><label>组权重</label><div class="st-num-input">100</div></div>
+                <div class="input-group"><label>黏性</label><div class="st-num-input">0</div></div>
+                <div class="input-group"><label>冷却</label><div class="st-num-input">0</div></div>
+                <div class="input-group"><label>延迟</label><div class="st-num-input">0</div></div>
+            </div>
+
+            <div class="bottom-selectors">
+                <div class="input-group">
+                    <label class="st-label-small">绑定到角色或标签</label>
+                    <div class="st-multiselect">-- 未找到角色 --<br>default_Seraphina</div>
+                </div>
+                <div class="input-group">
+                    <label class="st-label-small">筛选生成触发器</label>
+                    <div class="st-multiselect">正常<br>继续<br>AI 帮答</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 

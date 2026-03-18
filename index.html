@@ -377,6 +377,42 @@
 .detail-body { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
 .entry-card.expanded .detail-body { max-height: 2000px; }
 
+
+
+/* --- 新3.19，030 --- */
+
+/* --- 这里是新增加的修改标示 --- */
+
+/* 1. 让归属选择器好看一点，不跟下面重叠 */
+.worldbook-selector-container {
+    padding: 10px 15px;
+    background: rgba(255, 255, 255, 0.4); /* 半透明背景 */
+    border-radius: 10px;
+    margin: 10px; /* 增加外边距，拉开和卡片的距离 */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+}
+
+/* 2. 解决你说的重叠问题：给卡片增加一个下边距 */
+.entry-card {
+    margin-bottom: 20px !important; /* 强制拉开卡片之间的距离 */
+    position: relative; /* 确保它在自己的层级 */
+}
+
+/* 3. 调整选择框的样式（类酒馆风） */
+.st-select {
+    background: white;
+    border: 1px solid #ffb6c1;
+    border-radius: 5px;
+    padding: 3px 8px;
+    color: #333;
+}
+
+
+
+
     </style>
 
 

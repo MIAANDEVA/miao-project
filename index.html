@@ -111,31 +111,7 @@
 
 
  --- */
-
-<div class="worldbook-header">
-    <span class="worldbook-name">🌎 世界书：我的冒险设定</span>
-</div>
-
-<div class="item-card">
-    <div class="selection-control">
-        <div class="checkbox-circle"></div> <span class="order-number">1</span> </div>
-
-    <div class="card-main">
-        <div class="card-header">
-            <span class="fold-triangle">▼</span>
-            <span class="item-title">条目名称（例如：角色背景）</span>
-        </div>
-
-        <div class="card-content">
-            <div class="form-group">
-                <label>主要关键词</label>
-                <textarea placeholder="输入关键词..."></textarea>
-            </div>
-            </div>
-    </div>
-</div>
-
-        .worldbook-card {
+           .worldbook-card {
             background: var(--ios-bg);
             backdrop-filter: blur(var(--blur-val));
             border-radius: var(--ios-radius);
@@ -422,6 +398,44 @@
             </div>
             <button class="import-btn">📥</button>
         </div>
+
+<div class="worldbook-container">
+    <div class="worldbook-parent-title">归属：世界书一 (Worldbook 01)</div>
+
+    <div class="entry-wrapper">
+        <div class="select-handler">
+            <div class="select-circle"></div>
+        </div>
+
+        <details class="item-card" open>
+            <summary class="card-header">
+                <span class="entry-name">条目名称 (例如: 角色定义)</span>
+                <div class="header-icons">
+                    <span>⇅</span> <span>📋</span> <span>🗑️</span>
+                </div>
+            </summary>
+
+            <div class="card-content">
+                <div class="input-row">
+                    <div class="input-group">
+                        <label>插入位置</label>
+                        <select><option>角色定义之前</option></select>
+                    </div>
+                    </div>
+
+                <div class="keyword-section">
+                    <label>主要关键词</label>
+                    <textarea placeholder="输入关键词..."></textarea>
+                </div>
+                
+                <div class="content-preview">
+                    <p>内容 (词符预览)</p>
+                    <div class="preview-box">...内容文字...</div>
+                </div>
+            </div>
+        </details>
+    </div>
+</div>
 
         <div class="entry-card expanded" id="entry-full-demo">
             

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pocket Weaver - 页面 B</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="top-nav">
+            <div class="tab-switch">
+                <span class="active">世界书</span>
+                <span>正则</span>
+            </div>
+            <div class="import-icon">📥</div>
+        </header>
+
+        <main class="content">
+            <section class="worldbook-group">
+                <h2 class="worldbook-title">世界书：幻想世界设定集 (样例)</h2>
+                
+                <div class="entry-card">
+                    <div class="check-order-btn">1</div>
+                    
+                    <div class="card-body">
+                        <div class="card-header">
+                            <div class="collapse-trigger">▼</div>
+                            <div class="entry-id-tags">
+                                <span class="tag">深度: 10</span>
+                                <span class="tag">顺序: 100</span>
+                            </div>
+                            <div class="header-actions">
+                                📋 🗑️
+                            </div>
+                        </div>
+
+                        <div class="card-content">
+                            <div class="input-group">
+                                <label>插入位置</label>
+                                <select><option>角色定义之前</option></select>
+                            </div>
+
+                            <div class="input-row">
+                                <div class="input-group main-keyword">
+                                    <label>主要关键词</label>
+                                    <textarea placeholder="输入关键词..."></textarea>
+                                </div>
+                                <div class="input-group logic-judge">
+                                    <label>逻辑判定</label>
+                                    <select><option>与任意</option></select>
+                                    <input type="text" placeholder="正则表达式...">
+                                </div>
+                            </div>
+
+                            <div class="input-group">
+                                <label>内容 (词符预览)</label>
+                                <textarea class="preview-area" readonly>- 这是一个示例条目内容...</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                </section>
+        </main>
+    </div>
+</body>
+</html>

@@ -216,6 +216,124 @@
             -webkit-mask-size: contain;
             -webkit-mask-repeat: no-repeat;
         }
+/* --- 酒馆风格参数区专有样式 --- */
+.entry-card {
+    background: rgba(26, 26, 26, 0.85); /* 深色背景，对标酒馆 */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    margin-bottom: 12px;
+    color: #eee;
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+.entry-card:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 8px rgba(255, 182, 193, 0.3);
+}
+
+/* 卡片头部：开关、名称、操作 */
+.card-header {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.05);
+    gap: 10px;
+}
+
+.st-toggle {
+    width: 34px;
+    height: 18px;
+    background: #444;
+    border-radius: 10px;
+    position: relative;
+    cursor: pointer;
+}
+.st-toggle.active { background: #4caf50; } /* 酒馆绿 */
+.st-toggle::after {
+    content: '';
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background: white;
+    border-radius: 50%;
+    top: 2px;
+    left: 2px;
+    transition: 0.2s;
+}
+.st-toggle.active::after { left: 18px; }
+
+.entry-name-display {
+    flex-grow: 1;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.header-icons {
+    display: flex;
+    gap: 8px;
+    color: #aaa;
+    font-size: 14px;
+}
+
+/* 网格参数区：位置、深度、顺序等 */
+.params-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 双列布局 */
+    gap: 10px;
+    padding: 12px;
+    font-size: 12px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.param-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.param-label {
+    color: #888;
+    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 0.5px;
+}
+
+.param-value-box {
+    background: #2a2a2a;
+    border: 1px solid #444;
+    border-radius: 4px;
+    padding: 4px 8px;
+    color: var(--primary-color); /* 突出显示参数值 */
+}
+
+/* 触发词展示区 */
+.kw-area {
+    padding: 8px 12px;
+    border-top: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.kw-tag {
+    display: inline-block;
+    background: rgba(255, 182, 193, 0.2);
+    color: var(--primary-color);
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-right: 5px;
+    font-size: 11px;
+}
+
+/* 首页特有的选择圆圈 (放在卡片最左侧) */
+.entry-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+.select-wrapper {
+    padding-top: 15px;
+}
+
     </style>
 </head>
 <body>
@@ -223,26 +341,64 @@
     <div class="bg-overlay"></div>
 
     <main id="page-a">
-        
-        <div class="header-tools">
-            <div class="module-switcher">
-                <button class="switch-btn active">世界书</button>
-                <button class="switch-btn">正则</button>
-            </div>
-            <button class="import-btn">+</button>
+    <div class="header-tools">
+        <div class="module-switcher">
+            <button class="switch-btn active">世界书</button>
+            <button class="switch-btn">正则</button>
+        </div>
+        <button class="import-btn" title="导入 JSON">📥</button>
+    </div>
+
+    <div class="worldbook-card" id="book-primary">
+        <div class="book-header" onclick="toggleBook('book-primary')">
+            <span class="book-title">📚 Genshin_Impact_Lore.json</span>
+            <span class="arrow-icon">▼</span>
         </div>
 
-        <div class="worldbook-card" id="book-1">
-            <div class="book-header" onclick="toggleBook('book-1')">
-                <span class="book-title">📁 默认世界书 (演示)</span>
-                <span class="arrow-icon">▼</span>
-            </div>
-            <div class="entry-list">
-                <div class="entry-item">
-                    <div class="check-circle checked">1</div>
-                    <div class="entry-info">
-                        <div style="font-size: 14px; font-weight: 500;">角色设定: 主角</div>
-                        <div style="font-size: 12px; color: var(--text-sub);">关键词: 勇者, 剑</div>
+        <div class="entry-list">
+            
+            <div class="entry-container">
+                <div class="select-wrapper">
+                    <div class="check-circle" onclick="this.classList.toggle('checked')"></div>
+                </div>
+                
+                <div class="entry-card">
+                    <div class="card-header">
+                        <div class="arrow-icon" style="font-size: 10px;">▶</div>
+                        <div class="st-toggle active"></div> <div class="entry-name-display">雷电将军 (Raiden Shogun)</div>
+                        <div class="header-icons">
+                            <span>📋</span> <span>🗑️</span> </div>
+                    </div>
+
+                    <div class="params-grid">
+                        <div class="param-item">
+                            <span class="param-label">插入位置 (Position)</span>
+                            <div class="param-value-box">EMBED (随上下文插入)</div>
+                        </div>
+                        <div class="param-item">
+                            <span class="param-label">深度 (Depth)</span>
+                            <div class="param-value-box">4</div>
+                        </div>
+                        <div class="param-item">
+                            <span class="param-label">顺序 (Order)</span>
+                            <div class="param-value-box">100</div>
+                        </div>
+                        <div class="param-item">
+                            <span class="param-label">触发概率 (%)</span>
+                            <div class="param-value-box">100</div>
+                        </div>
+                    </div>
+
+                    <div class="kw-area">
+                        <span class="param-label">触发词:</span><br>
+                        <span class="kw-tag">雷电将军</span>
+                        <span class="kw-tag">影</span>
+                        <span class="kw-tag">稻妻</span>
                     </div>
                 </div>
-                <div class="en
+            </div>
+            </div>
+    </div>
+
+    <div class="start-btn" onclick="alert('即将进入页面 B 进行编辑...')">开始整理条目 (已选 1)</div>
+</main>

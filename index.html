@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Pocket Weaver - 口袋编织者</title>
+    <style>
+        /* --- 全局变量配置 --- */
+        :root {
+            --ios-bg: rgba(255, 255, 255, 0.7); /* 半透明白色 */
+            --ios-radius: 18px; /* 标准iOS圆角 */
+            --primary-color: #ffb6c1; /* 默认粉色 */
+            --text-main: #333;
+            --text-sub: #888;
+            --blur-val: 10px; /* 毛玻璃模糊度 */
+        }
+
+        /* --- 基础背景设置 --- */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+            background: url('https://img.heliar.top/file/1773835112006_IMG_20260318_195754.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: var(--text-main);
+            min-height: 100vh;
+        }
+
+        /* 背景遮罩层 (实现40%不透明度效果) */
+        .bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.4); /* 40% 不透明度 */
+            z-index: -1;
+        }
+
+        /* --- 页面 A 容器 --- */
+        #page-a {
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            padding-bottom: 100px; /* 为底部导航留位 */
+        }
+
+        /* --- 顶部切换与导入 --- */
+        .header-tools {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .module-switcher {
+            background: var(--ios-bg);
+            backdrop-filter: blur(var(--blur-val));
+            border-radius: 12px;
+            display: flex;
+            padding: 4px;
+        }
+
+        .switch-btn {
+            padding: 8px 20px;
+            border-radius: 8px;
+            border: none;
+            background: transparent;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .switch-btn.active {
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .import-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 50%;
+            font-size: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        /* --- 世界书展示逻辑 --- */
+        .worldbook-card {
+            background: var(--ios-bg);
+            backdrop-filter: blur(var(--blur-val));
+            border-radius: var(--ios-radius);
+            margin-bottom: 15px;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .book-header {
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            cursor: pointer;
+        }
+
+        .book-title {
+            font-weight: bold;
+            flex-grow: 1;
+        }
+
+        /* 展开/折叠的箭头 */
+        .arrow-icon {
+            transition: 0.3s;
+            color: var(--text-sub);
+        }
+
+        /* 条目容器 */
+        .entry-list {
+            padding: 10px;
+            display: block; /* 默认展开 */
+        }
+
+        /* 条目单体样式 */
+        .entry-item {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.5);
+            margin-bottom: 8px;
+            padding: 10px;
+            border-radius: 12px;
+        }
+
+        /* 勾选圆框 */
+        .check-circle {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary-color);
+            border-radius: 50%;
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: white;
+            transition: 0.2s;
+        }
+
+        .check-circle.checked {
+            background: var(--primary-color);
+        }
+
+        /* --- 特殊细节：折叠后的空白占位 --- */
+        .worldbook-card.collapsed .entry-list {
+            display: none;
+        }
+
+        .worldbook-card.collapsed {
+            margin-bottom: 40px; /* 明显的空白占位 */
+            opacity: 0.8;
+        }
+
+        .worldbook-card.collapsed .arrow-icon {
+            transform: rotate(-90deg);
+        }
+
+        /* --- 底部按钮 --- */
+        .start-btn {
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 15px;
+            border-radius: var(--ios-radius);
+            font-weight: bold;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(255, 182, 193, 0.4);
+        }
+
+        /* --- 底部固定导航栏 --- */
+        .tab-bar {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            height: 65px;
+            background: var(--ios-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+
+        .tab-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--text-sub);
+            font-size: 12px;
+            text-decoration: none;
+        }
+
+        .tab-item.active {
+            color: var(--primary-color);
+        }
+
+        .icon-placeholder {
+            width: 24px;
+            height: 24px;
+            margin-bottom: 4px;
+            background: currentColor;
+            mask-size: contain;
+            mask-repeat: no-repeat;
+            -webkit-mask-size: contain;
+            -webkit-mask-repeat: no-repeat;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-overlay"></div>
+
+    <main id="page-a">
+        
+        <div class="header-tools">
+            <div class="module-switcher">
+                <button class="switch-btn active">世界书</button>
+                <button class="switch-btn">正则</button>
+            </div>
+            <button class="import-btn">+</button>
+        </div>
+
+        <div class="worldbook-card" id="book-1">
+            <div class="book-header" onclick="toggleBook('book-1')">
+                <span class="book-title">📁 默认世界书 (演示)</span>
+                <span class="arrow-icon">▼</span>
+            </div>
+            <div class="entry-list">
+                <div class="entry-item">
+                    <div class="check-circle checked">1</div>
+                    <div class="entry-info">
+                        <div style="font-size: 14px; font-weight: 500;">角色设定: 主角</div>
+                        <div style="font-size: 12px; color: var(--text-sub);">关键词: 勇者, 剑</div>
+                    </div>
+                </div>
+                <div class="en

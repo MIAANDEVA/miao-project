@@ -378,6 +378,53 @@
 .entry-card.expanded .detail-body { max-height: 2000px; }
 
     </style>
+
+/* 所属世界书标签样式 */
+.parent-book-tag {
+    font-size: 12px;
+    padding: 8px 12px 0;
+    color: var(--text-sub);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* 折叠三角样式 */
+.fold-trigger {
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+}
+
+.fold-trigger.collapsed {
+    transform: rotate(-90deg); /* 折叠时三角指向右侧 */
+}
+
+/* 内容折叠动画 */
+.card-content {
+    transition: max-height 0.3s ease-out, opacity 0.3s;
+    max-height: 2000px; /* 足够大的高度确保显示 */
+    overflow: hidden;
+}
+
+.card-content.is-hidden {
+    max-height: 0;
+    opacity: 0;
+    padding-bottom: 0;
+}
+
+/* 简单的图标装饰 */
+.header-tools {
+    display: flex;
+    gap: 10px;
+    color: var(--text-sub);
+    font-size: 14px;
+}
+
 </head>
 <body>
 
@@ -392,12 +439,32 @@
 
         <div class="entry-card expanded" id="entry-full-demo">
             
-            <div class="card-header">
-                <div class="arrow-icon" onclick="toggleEntry('entry-full-demo')">▼</div>
-                <div class="st-toggle active" style="margin: 0 5px;"></div>
-                <input type="text" class="entry-name-input" value="亚人, 半人, 兽人, 言兽, 半兽" readonly>
-                <div class="header-icons">⇅ 📋 🗑️</div>
-            </div>
+           <div class="entry-card">
+    
+    <div class="parent-book-tag">
+        <span class="book-icon">📖</span> 
+        <span class="book-name">默认世界书 (Worldbook 1)</span>
+    </div>
+
+    <div class="card-header">
+        <div class="fold-trigger" onclick="toggleFold(this)">
+            <span class="triangle">▼</span>
+        </div>
+        
+        <input type="text" class="entry-name-input" value="亚人, 半人, 兽人, 言兽, 半兽">
+        
+        <div class="header-tools">
+            <span class="icon">⇅</span>
+            <span class="icon">📋</span>
+            <span class="icon">🗑️</span>
+        </div>
+    </div>
+
+    <div class="card-content">
+        <div class="placement-grid"> ... </div>
+        </div>
+</div>
+
 
             <div class="detail-body">
                 <div class="placement-grid">

@@ -86,7 +86,31 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
-        /* --- 世界书展示逻辑 --- */
+        /* --- 
+
+
+
+
+
+
+
+
+
+
+
+世界书展示逻辑
+
+
+
+
+
+
+
+
+
+
+
+ --- */
         .worldbook-card {
             background: var(--ios-bg);
             backdrop-filter: blur(var(--blur-val));
@@ -216,242 +240,262 @@
             -webkit-mask-size: contain;
             -webkit-mask-repeat: no-repeat;
         }
-/* --- 1:1 酒馆功能扩展样式 --- */
 :root {
-    --ios-bg: rgba(255, 255, 255, 0.4); 
-    --inner-bg: rgba(255, 255, 255, 0.25);
-    --border-color: rgba(0, 0, 0, 0.08);
-    --primary-pink: #ffb6c1;
+    --ios-bg: rgba(255, 255, 255, 0.45);
+    --ios-radius: 12px;
+    --primary-color: #ffb6c1; 
     --st-green: #48bb78;
-    --text-dark: #333;
-    --text-muted: #666;
+    --text-main: #333;
+    --text-sub: #666;
+    --input-bg: rgba(255, 255, 255, 0.5);
+    --border: rgba(0, 0, 0, 0.1);
 }
 
-/* 基础卡片 */
-.st-card {
+/* 基础卡片容器 */
+.entry-card {
     background: var(--ios-bg);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
-    border: 1px solid var(--border-color);
-    border-radius: 16px;
+    border: 1px solid var(--border);
+    border-radius: var(--ios-radius);
     margin-bottom: 20px;
-    color: var(--text-dark);
-    font-size: 13px;
-    transition: 0.3s;
+    color: var(--text-main);
+    overflow: hidden;
 }
 
-/* 1. 顶部控制栏 */
-.st-header {
-    padding: 12px;
+/* 一、 顶部控制栏 */
+.card-header {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
+    padding: 10px 12px;
+    background: rgba(255, 255, 255, 0.2);
     gap: 8px;
-    border-bottom: 1px solid var(--border-color);
 }
-
-.st-title-row { width: 100%; display: flex; align-items: center; margin-bottom: 8px; }
-
-.st-input, .st-select, .st-textarea {
-    background: var(--inner-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    padding: 4px 8px;
+.entry-name-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    font-weight: bold;
+    font-size: 14px;
     outline: none;
+}
+
+/* 二、 基础插入设置 (4列布局) */
+.placement-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 8px;
+    padding: 12px;
+    border-bottom: 1px solid var(--border);
+}
+
+/* 通用输入框样式 */
+.st-label { font-size: 10px; color: var(--text-sub); display: block; margin-bottom: 2px; }
+.st-input, .st-select {
+    width: 100%;
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 4px;
     font-size: 12px;
+    box-sizing: border-box;
 }
 
-/* 2. 触发逻辑网格 */
-.logic-grid {
+/* 三、 触发匹配逻辑区 */
+.trigger-logic-section { padding: 12px; }
+.keywords-row { display: flex; gap: 10px; margin-bottom: 10px; }
+.st-textarea {
+    width: 100%;
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    min-height: 60px;
+    font-family: monospace;
+    font-size: 12px;
+    padding: 6px;
+}
+
+/* 四、 二层控制行 (5列布局) */
+.secondary-controls {
     display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 10px;
-    padding: 10px;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+    margin-top: 10px;
 }
 
-.sub-settings-row {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 5px;
-    padding: 0 10px 10px;
-    font-size: 10px;
-}
-
-/* 3. 核心内容与复选框 */
-.content-area { padding: 10px; border-top: 1px dashed var(--border-color); }
-.st-textarea { width: 100%; box-sizing: border-box; min-height: 80px; resize: vertical; }
-
-.checkbox-group {
+/* 五、 递归勾选组 */
+.recursion-group {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 5px;
-    padding: 8px 0;
+    padding: 8px 12px;
+    background: rgba(0,0,0,0.02);
+    font-size: 11px;
 }
+.check-item { display: flex; align-items: center; gap: 5px; margin: 4px 0; }
 
-.check-item { display: flex; align-items: center; gap: 5px; font-size: 11px; }
-
-/* 4. 权重控制区 (4列并列) */
-.weight-grid {
+/* 六、 权重与时效 (4列布局) */
+.weight-timing-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 8px;
-    padding: 10px;
-    background: rgba(0,0,0,0.02);
+    padding: 12px;
 }
 
-/* 5. 绑定与触发器区 (双栏列表) */
-.filter-section {
+/* 七、 绑定与筛选 (两列并排) */
+.binding-section {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    padding: 10px;
+    gap: 12px;
+    padding: 12px;
 }
-.list-box {
+.st-listbox {
     height: 80px;
     overflow-y: auto;
-    background: var(--inner-bg);
-    border: 1px solid var(--border-color);
+    background: var(--input-bg);
+    border: 1px solid var(--border);
     border-radius: 6px;
+    font-size: 11px;
     padding: 5px;
 }
 
-/* 6. 额外匹配源 (底部网格) */
+/* 额外匹配来源 (折叠层) */
 .extra-vectors {
+    background: rgba(0,0,0,0.05);
     padding: 10px;
+    font-size: 11px;
+}
+.vector-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 5px;
-    border-top: 1px solid var(--border-color);
 }
 
-/* 标签辅助 */
-.label-sm { font-size: 10px; color: var(--text-muted); display: block; margin-bottom: 2px; }
+/* 交互状态：优先级数值禁用逻辑 */
+.st-input:disabled { opacity: 0.4; background: #eee; }
 
-/* 折叠逻辑 */
-.st-body { display: none; }
-.st-card.open .st-body { display: block; }
-
+/* 展开折叠动画 */
+.detail-body { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+.entry-card.expanded .detail-body { max-height: 2000px; }
 
     </style>
 </head>
 <body>
 
-    <div class="bg-overlay"></div>
-
-  <div class="st-card open" id="entry-full-1">
-    <div class="st-header">
-        <div class="st-title-row">
-            <span class="arrow-icon" onclick="toggleEntry('entry-full-1')">▼</span>
-            <div class="st-toggle active" style="margin: 0 10px;"></div>
-            <input type="text" class="st-input" style="flex:1; font-weight:bold;" value="亚人族设定" readonly>
-            <div class="header-icons"> ⇄ 📋 🗑️ </div>
-        </div>
-        
-        <div style="display:flex; gap:8px; width:100%; align-items:flex-end;">
-            <div style="flex:2">
-                <span class="label-sm">插入位置</span>
-                <select class="st-select" style="width:100%" disabled>
-                    <option>角色定义之前</option>
-                    <option>角色定义之后</option>
-                    <option>示例消息前(↑EM)</option>
-                    <option>示例消息后(↓EM)</option>
-                    <option>作者注释之前</option>
-                    <option>作者注释之后</option>
-                    <option>[系统]在深度</option>
-                </select>
+        <main id="page-a">
+        <div class="header-tools">
+            <div class="module-switcher">
+                <button class="switch-btn active">世界书</button>
+                <button class="switch-btn">正则</button>
             </div>
-            <div style="flex:1">
-                <span class="label-sm">深度</span>
-                <input type="number" class="st-input" style="width:100%" value="10" readonly>
-            </div>
-            <div style="flex:1">
-                <span class="label-sm">顺序</span>
-                <input type="number" class="st-input" style="width:100%" value="100" readonly>
-            </div>
-            <div style="flex:1">
-                <span class="label-sm">触发%</span>
-                <input type="number" class="st-input" style="width:100%" value="100" readonly>
-            </div>
-        </div>
-    </div>
-
-    <div class="st-body">
-        <div class="logic-grid">
-            <div>
-                <span class="label-sm">主要关键词</span>
-                <textarea class="st-textarea" style="height:40px" readonly>亚人, 半人, 兽人, 言兽</textarea>
-            </div>
-            <div>
-                <span class="label-sm">逻辑判定</span>
-                <select class="st-select" style="width:100%" disabled><option>与 任意</option></select>
-                <span class="label-sm" style="margin-top:5px">可选过滤器</span>
-                <input type="text" class="st-input" style="width:100%" placeholder="过滤词..." readonly>
-            </div>
-        </div>
-        <div class="sub-settings-row">
-            <div><span class="label-sm">区分大小写</span><select class="st-select" disabled><option>使用全局</option></select></div>
-            <div><span class="label-sm">完整单词</span><select class="st-select" disabled><option>使用全局</option></select></div>
-            <div><span class="label-sm">组评分</span><select class="st-select" disabled><option>使用全局</option></select></div>
-            <div><span class="label-sm">自动化 ID</span><input type="text" class="st-input" style="width:100%" readonly></div>
+            <button class="import-btn">📥</button>
         </div>
 
-        <div class="content-area">
-            <span class="label-sm">内容 (Content)</span>
-            <textarea class="st-textarea" placeholder="输入条目描述..." readonly>- 基因基础: 携带Y染色体
-- 外部形态: 纯粹人类形态...</textarea>
-            <div class="checkbox-group">
-                <div class="check-item"><input type="checkbox" checked disabled> 不可递归</div>
-                <div class="check-item"><input type="checkbox" checked disabled> 防止进一步递归</div>
-                <div class="check-item"><input type="checkbox" disabled> 延迟到递归</div>
-                <div class="check-item"><input type="checkbox" disabled> 无视回复限额</div>
+        <div class="entry-card expanded" id="entry-full-demo">
+            
+            <div class="card-header">
+                <div class="arrow-icon" onclick="toggleEntry('entry-full-demo')">▼</div>
+                <div class="st-toggle active" style="margin: 0 5px;"></div>
+                <input type="text" class="entry-name-input" value="亚人, 半人, 兽人, 言兽, 半兽" readonly>
+                <div class="header-icons">⇅ 📋 🗑️</div>
             </div>
-        </div>
 
-        <div class="weight-grid">
-            <div class="input-group">
-                <span class="label-sm">组权重</span>
-                <input type="number" class="st-input" value="100" readonly>
-            </div>
-            <div class="input-group">
-                <span class="label-sm">黏性</span>
-                <input type="number" class="st-input" value="0" readonly>
-            </div>
-            <div class="input-group">
-                <span class="label-sm">冷却</span>
-                <input type="number" class="st-input" value="0" readonly>
-            </div>
-            <div class="input-group">
-                <span class="label-sm">延迟</span>
-                <input type="number" class="st-input" value="0" readonly>
-            </div>
-            <div class="check-item" style="grid-column: span 4; margin-top:5px;">
-                <input type="checkbox" disabled> 确定优先级
-            </div>
-        </div>
-
-        <div class="filter-section">
-            <div>
-                <span class="label-sm">绑定到角色/标签 (排除 ☐)</span>
-                <div class="list-box">
-                    <div>default_Seraphina</div>
-                    <div>[Tag] ST Default</div>
+            <div class="detail-body">
+                <div class="placement-grid">
+                    <div>
+                        <label class="st-label">插入位置</label>
+                        <select class="st-select" disabled>
+                            <option>角色定义之前</option>
+                            <option>角色定义之后</option>
+                            <option>示例消息前(↑EM)</option>
+                            <option>示例消息后(↓EM）</option>
+                            <option>作者注释之前</option>
+                            <option>作者注释之后</option>
+                            <option>[系统]在深度</option>
+                            <option>[用户]在深度</option>
+                            <option>[AI]在深度</option>
+                            <option>锚点</option>
+                        </select>
+                    </div>
+                    <div><label class="st-label">深度</label><input type="number" class="st-input" value="10" readonly></div>
+                    <div><label class="st-label">顺序</label><input type="number" class="st-input" value="100" readonly></div>
+                    <div><label class="st-label">触发%</label><input type="number" class="st-input" value="100" readonly></div>
                 </div>
-            </div>
-            <div>
-                <span class="label-sm">筛选生成触发器</span>
-                <div class="list-box">
-                    <div>✓ 正常</div>
-                    <div>✓ 继续</div>
-                    <div>AI 帮答</div>
-                </div>
-            </div>
-        </div>
 
-        <div class="extra-vectors">
-            <div class="check-item"><input type="checkbox" disabled> 角色描述</div>
-            <div class="check-item"><input type="checkbox" disabled> 角色性格</div>
-            <div class="check-item"><input type="checkbox" disabled> 情景</div>
-            <div class="check-item"><input type="checkbox" disabled> 用户设定</div>
-        </div>
-    </div>
-</div>
+                <div class="trigger-logic-section">
+                    <div class="keywords-row">
+                        <div style="flex:2">
+                            <label class="st-label">主要关键词</label>
+                            <textarea class="st-textarea" readonly>亚人, 半人, 兽人, 言兽, 半兽</textarea>
+                        </div>
+                        <div style="flex:1">
+                            <label class="st-label">逻辑判定</label>
+                            <select class="st-select" disabled><option>与 任意</option></select>
+                            <label class="st-label" style="margin-top:8px">可选过滤器</label>
+                            <input type="text" class="st-input" placeholder="正则表达式..." readonly>
+                        </div>
+                    </div>
+
+                    <div class="secondary-controls">
+                        <div><label class="st-label">扫描深度</label><input type="number" class="st-input" value="10" readonly></div>
+                        <div><label class="st-label">区分大小写</label><select class="st-select" disabled><option>全局</option></select></div>
+                        <div><label class="st-label">完整单词</label><select class="st-select" disabled><option>全局</option></select></div>
+                        <div><label class="st-label">组评分</label><select class="st-select" disabled><option>全局</option></select></div>
+                        <div><label class="st-label">自动化 ID</label><input type="text" class="st-input" value="1" readonly></div>
+                    </div>
+                </div>
+
+                <div class="recursion-group">
+                    <div class="check-item"><input type="checkbox" checked disabled> 不可递归</div>
+                    <div class="check-item"><input type="checkbox" checked disabled> 防止进一步递归</div>
+                    <div class="check-item"><input type="checkbox" disabled> 延迟到递归</div>
+                    <div class="check-item"><input type="checkbox" disabled> 无视回复限额</div>
+                </div>
+                <div style="padding:0 12px 12px">
+                    <label class="st-label">内容 (词符预览)</label>
+                    <textarea class="st-textarea" style="min-height:150px; background: rgba(0,0,0,0.03);" readonly>- 基因基础: 携带Y染色体
+- 外部形态: 纯粹人类形态，不携带任何动物特征
+- 族群存续逻辑: 繁衍模式为人类男性与非人雌性...</textarea>
+                </div>
+
+                <div class="weight-timing-grid">
+                    <div><label class="st-label">组权重</label><input type="number" class="st-input" value="100" readonly></div>
+                    <div><label class="st-label">黏性</label><input type="number" class="st-input" value="0" readonly></div>
+                    <div><label class="st-label">冷却</label><input type="number" class="st-input" value="0" readonly></div>
+                    <div><label class="st-label">延迟</label><input type="number" class="st-input" value="0" readonly></div>
+                </div>
+
+                <div style="padding:0 12px 12px; display:flex; align-items:center; gap:10px;">
+                    <input type="checkbox" checked disabled> 
+                    <label class="st-label" style="margin-bottom:0">确定优先级</label>
+                    <input type="number" class="st-input" style="width:60px" value="0" readonly>
+                </div>
+
+                <div class="binding-section">
+                    <div>
+                        <label class="st-label">绑定角色/标签 <input type="checkbox" disabled> 排除</label>
+                        <div class="st-listbox">
+                            <div>-- 未找到角色 --</div>
+                            <div style="color:var(--primary-color)">● default_Seraphina</div>
+                            <div>[Tag] ST Default</div>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="st-label">筛选生成触发器</label>
+                        <div class="st-listbox">
+                            <div><input type="checkbox" checked disabled> 正常</div>
+                            <div><input type="checkbox" checked disabled> 继续</div>
+                            <div><input type="checkbox" checked disabled> AI 帮答</div>
+                            <div><input type="checkbox" disabled> 滑动</div>
+                        </div>
+                    </div>
+                </div>
+
+                <details class="extra-vectors">
+                    <summary style="cursor:pointer; font-weight:bold; color:var(--text-sub)">额外匹配来源 ▼</summary>
+                    <div class="vector-grid" style="margin-top:10px">
+                        <div class="check-item"><input type="checkbox" disabled> 角色描述</div>
+                        <div class="check-item"><input type="checkbox" disabled> 角色性格</div>
+                        <div class="check-item"><input type="checkbox" disabled> 情景</div>
+                        <div class="check-item"><input type="checkbox" disabled> 用户设定</div>
+                        <div class="check-item"><input type="checkbox" disabled> 角色备注</div>
+                        <div class="check-item"><input
